@@ -205,7 +205,37 @@ function writeRealSample(eventName, data) {
   fs.writeFileSync(filePath, JSON.stringify(sample, null, 2) + '\n', { encoding: 'utf8', mode: 0o600 });
 }
 
-// Phase 01-02 scope: command mapping is added in Task 2.
+// Phase 1 explicit mapping (Phase 2 will externalize to JSON).
+const COMMAND_MAP = Object.freeze({
+  '/gsd:add-phase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:add-todo': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:audit-milestone': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:check-todos': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:complete-milestone': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:debug': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:discuss-phase': { required_subagent: 'gsd-planner', expected_artifacts: [] },
+  '/gsd:execute-phase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:help': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:insert-phase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:join-discord': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:list-phase-assumptions': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:map-codebase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:new-milestone': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:new-project': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:pause-work': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:plan-milestone-gaps': { required_subagent: 'gsd-planner', expected_artifacts: [] },
+  '/gsd:plan-phase': { required_subagent: 'gsd-planner', expected_artifacts: [] },
+  '/gsd:progress': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:quick': { required_subagent: 'gsd-executor', expected_artifacts: [] },
+  '/gsd:remove-phase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:research-phase': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:resume-work': { required_subagent: 'other', expected_artifacts: [] },
+  '/gsd:set-profile': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:settings': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:summarize': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:update': { required_subagent: 'none', expected_artifacts: [] },
+  '/gsd:verify-work': { required_subagent: 'other', expected_artifacts: [] },
+});
 
 async function handleUserPromptSubmit(data) {
   const promptText = getPromptText(data);
@@ -277,8 +307,15 @@ async function handleStop(data) {
     return;
   }
 
-  // Phase 01-02 scope: only prove cross-event correlation works.
-  // Task 2 adds explicit command mapping + fail-closed for unmapped /gsd:*.
+  if (!Object.prototype.hasOwnProperty.call(COMMAND_MAP, command)) {
+    stopBlock(
+      `GSD enforcement: unmapped command '${command}'. Add an explicit entry to COMMAND_MAP in hooks/gsd-enforce.js (fail-closed).`
+    );
+    return;
+  }
+
+  // Phase 01-02 scope: only fail-closed for unmapped /gsd:*.
+  // Enforcement of required_subagent/artifacts happens in later plans.
   clearTurnState(sessionId);
 }
 
