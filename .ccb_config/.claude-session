@@ -1,0 +1,13 @@
+{
+  "session_id": "ai-1769669289-246838",
+  "ccb_project_id": "492950b58f04f0514f3c4edca3d204d54eb37057d24e82ba0ea724035f41c011",
+  "work_dir": "/home/adam/projects/get-shit-done",
+  "work_dir_norm": "/home/adam/projects/get-shit-done",
+  "start_dir": "/home/adam/projects/get-shit-done",
+  "terminal": "tmux",
+  "active": true,
+  "started_at": "2026-01-29 14:48:09",
+  "updated_at": "2026-01-29 14:48:09",
+  "pane_id": "%0",
+  "pane_title_marker": "CCB-Claude"
+}

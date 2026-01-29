@@ -1010,9 +1010,20 @@ If STATE.md missing but .planning/ exists, offer to reconstruct or continue with
 COMMIT_PLANNING_DOCS=$(cat .planning/config.json 2>/dev/null | grep -o '"commit_docs"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "true")
 # Auto-detect gitignored (overrides config)
 git check-ignore -q .planning 2>/dev/null && COMMIT_PLANNING_DOCS=false
+
+# Load output language setting (default: english)
+OUTPUT_LANGUAGE=$(cat .planning/config.json 2>/dev/null | grep -o '"output_language"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "english")
 ```
 
 Store `COMMIT_PLANNING_DOCS` for use in git operations.
+
+**Apply language directive:**
+
+If `OUTPUT_LANGUAGE` is not "english", prepend a language instruction to all generated content:
+- For chinese: "使用中文进行所有输出。\n\n"
+- For spanish: "Use Spanish for all outputs.\n\n"
+- For japanese: "日本語で出力してください。\n\n"
+- For custom: "Use ${OUTPUT_LANGUAGE} for all outputs.\n\n"
 </step>
 
 <step name="load_codebase_context">

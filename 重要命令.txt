@@ -1,0 +1,11 @@
+# GSD 开发常用命令
+
+## 本地安装测试
+
+本地安装前必须先构建 hooks：
+
+```bash
+npm run build:hooks && node bin/install.js --claude --local
+```
+
+原因：安装脚本从 hooks/dist/ 复制文件，该目录只在构建时生成。

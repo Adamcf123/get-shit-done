@@ -52,6 +52,18 @@ AskUserQuestion([
     ]
   },
   {
+    question: "Output language for generated prompts?",
+    header: "Language",
+    multiSelect: false,
+    options: [
+      { label: "English", description: "All prompts in English (default)" },
+      { label: "Chinese (中文)", description: "使用中文生成所有提示词" },
+      { label: "Spanish (Español)", description: "Todos los prompts en español" },
+      { label: "Japanese (日本語)", description: "すべてのプロンプトを日本語で生成" },
+      { label: "Other", description: "Specify a custom language" }
+    ]
+  },
+  {
     question: "Spawn Plan Researcher? (researches domain before planning)",
     header: "Research",
     multiSelect: false,
@@ -91,6 +103,7 @@ Merge new settings into existing config.json:
 {
   ...existing_config,
   "model_profile": "quality" | "balanced" | "budget",
+  "output_language": "english" | "chinese" | "spanish" | "japanese" | "custom",
   "workflow": {
     "research": true/false,
     "plan_check": true/false,
@@ -113,11 +126,14 @@ Display:
 | Setting              | Value |
 |----------------------|-------|
 | Model Profile        | {quality/balanced/budget} |
+| Output Language      | {english/chinese/spanish/japanese/custom} |
 | Plan Researcher      | {On/Off} |
 | Plan Checker         | {On/Off} |
 | Execution Verifier   | {On/Off} |
 
 These settings apply to future /gsd:plan-phase and /gsd:execute-phase runs.
+
+**Language Setting:** When set to a non-English language, all generated prompts will include an explicit directive like "Use Chinese for all outputs" or "使用中文输出" at the beginning of agent instructions.
 
 Quick commands:
 - /gsd:set-profile <profile> — switch model profile
@@ -130,7 +146,7 @@ Quick commands:
 
 <success_criteria>
 - [ ] Current config read
-- [ ] User presented with 4 settings (profile + 3 toggles)
+- [ ] User presented with 5 settings (profile + language + 3 toggles)
 - [ ] Config updated with model_profile and workflow section
 - [ ] Changes confirmed to user
 </success_criteria>

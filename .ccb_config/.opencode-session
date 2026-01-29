@@ -1,0 +1,16 @@
+{
+  "session_id": "ai-1769669289-246838",
+  "ccb_session_id": "ai-1769669289-246838",
+  "ccb_project_id": "492950b58f04f0514f3c4edca3d204d54eb37057d24e82ba0ea724035f41c011",
+  "runtime_dir": "/tmp/claude-ai-adam/ai-1769669289-246838/opencode",
+  "terminal": "tmux",
+  "tmux_session": null,
+  "pane_id": "%1",
+  "pane_title_marker": "CCB-OpenCode",
+  "work_dir": "/home/adam/projects/get-shit-done",
+  "work_dir_norm": "/home/adam/projects/get-shit-done",
+  "start_dir": "/home/adam/projects/get-shit-done",
+  "active": true,
+  "started_at": "2026-01-29 14:48:09",
+  "start_cmd": "export CCB_MANAGED=1; export CCB_PARENT_PID=246838; export CCB_RUN_DIR=/home/adam/.cache/ccb/projects/492950b58f04f051; export PATH=/home/adam/.local/share/codex-dual/bin:'/home/adam/.pyenv/versions/3.13.8/bin:/home/adam/.pyenv/libexec:/home/adam/.pyenv/plugins/python-build/bin:/home/adam/.pyenv/plugins/pyenv-virtualenv/bin:/home/adam/.pyenv/plugins/pyenv-update/bin:/home/adam/.pyenv/plugins/pyenv-doctor/bin:/home/adam/.pyenv/shims:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/adam/.nvm/versions/node/v24.13.0/bin:/mnt/c/Users/Administrator/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin:/home/adam/go/bin:/home/adam/opt/go1.24.0-official/bin:/home/adam/.dotnet/tools:/home/adam/.dotnet:/home/adam/.cargo/bin:/home/adam/.bun/bin:/home/adam/.local/share/pnpm:/home/adam/bin:/home/adam/.local/bin:/home/adam/.opencode/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/adam/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/cursor/resources/app/bin'; opencode"
+}

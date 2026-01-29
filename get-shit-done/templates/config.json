@@ -1,6 +1,7 @@
 {
   "mode": "interactive",
   "depth": "standard",
+  "output_language": "english",
   "workflow": {
     "research": true,
     "plan_check": true,
