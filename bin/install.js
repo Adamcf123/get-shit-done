@@ -1021,11 +1021,9 @@ function install(isGlobal, runtime = 'claude') {
       const lang = templateConfig.output_language || 'english';
       const langDirectives = {
         'english': '',
-        'chinese': '请使用中文进行所有沟通。唯一例外：代码本身、代码注释、变量名、函数名等代码相关标识符保持英语。\n\n',
-        'spanish': 'Comunica en español. Excepción: el código, comentarios, nombres de variables/funciones permanecen en inglés.\n\n',
-        'japanese': '日本語でコミュニケーションしてください。例外：コード、コメント、変数名、関数名などのコード関連識別子は英語のままにします。\n\n'
+        'chinese': '请使用中文进行所有沟通。唯一例外：代码本身、代码注释、变量名、函数名等代码相关标识符保持英语。\n\n'
       };
-      languageDirective = langDirectives[lang] || `Communicate in ${lang}. Exception: code, comments, variable/function names remain in English.\n\n`;
+      languageDirective = langDirectives[lang] !== undefined ? langDirectives[lang] : '';
     } catch (e) {
       // Default to empty if config can't be read
       languageDirective = '';
