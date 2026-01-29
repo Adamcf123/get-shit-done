@@ -39,6 +39,22 @@ function getHookEventName(data) {
   );
 }
 
+function getToolName(data) {
+  if (!data || typeof data !== 'object') return null;
+  const name = data.tool_name || data.toolName || null;
+  if (name == null) return null;
+  if (typeof name === 'string' && name.trim() === '') return null;
+  return String(name);
+}
+
+function getToolInput(data) {
+  if (!data || typeof data !== 'object') return null;
+  const input = data.tool_input || data.toolInput || null;
+  if (input == null) return null;
+  if (typeof input !== 'object') return null;
+  return input;
+}
+
 function writeJson(obj) {
   process.stdout.write(JSON.stringify(obj) + '\n');
 }
@@ -206,9 +222,17 @@ const COMMAND_MAP = Object.freeze({
   '/gsd:new-project': { required_subagent: 'other', expected_artifacts: [] },
   '/gsd:pause-work': { required_subagent: 'other', expected_artifacts: [] },
   '/gsd:plan-milestone-gaps': { required_subagent: 'gsd-planner', expected_artifacts: [] },
-  '/gsd:plan-phase': { required_subagent: 'gsd-planner', expected_artifacts: [] },
+  '/gsd:plan-phase': {
+    required_subagent: 'gsd-planner',
+    expected_artifacts: [],
+    allowed_pre_tools: ['Task'],
+  },
   '/gsd:progress': { required_subagent: 'none', expected_artifacts: [] },
-  '/gsd:quick': { required_subagent: 'gsd-executor', expected_artifacts: [] },
+  '/gsd:quick': {
+    required_subagent: 'gsd-executor',
+    expected_artifacts: [],
+    allowed_pre_tools: ['AskUserQuestion', 'Task'],
+  },
   '/gsd:remove-phase': { required_subagent: 'other', expected_artifacts: [] },
   '/gsd:research-phase': { required_subagent: 'other', expected_artifacts: [] },
   '/gsd:resume-work': { required_subagent: 'other', expected_artifacts: [] },
@@ -228,23 +252,27 @@ async function handleUserPromptSubmit(data) {
     debugLog(`UserPromptSubmit keys=[${keys}] command=${command || 'none'}`);
   }
 
+  const sessionId = getSessionId(data);
+
   if (!command) {
-    const sessionId = getSessionId(data);
     if (sessionId) {
       clearTurnState(sessionId);
     }
     return;
   }
 
-  const sessionId = getSessionId(data);
   if (!sessionId) {
     failLoud('UserPromptSubmit', `detected ${command} but session_id is missing (cannot persist turn state)`);
     return;
   }
 
+  const mapped = Object.prototype.hasOwnProperty.call(COMMAND_MAP, command) ? COMMAND_MAP[command] : null;
+  const requiredSubagent = mapped && typeof mapped === 'object' ? mapped.required_subagent : null;
+
   const state = {
     active: true,
     command,
+    required_subagent: requiredSubagent,
     turn_start_ms: Date.now(),
     session_id: sessionId,
   };
@@ -254,6 +282,17 @@ async function handleUserPromptSubmit(data) {
 
 function stopBlock(reason) {
   writeJson({ decision: 'block', reason });
+  process.exit(0);
+}
+
+function preToolDeny(reason) {
+  writeJson({
+    hookSpecificOutput: {
+      hookEventName: 'PreToolUse',
+      permissionDecision: 'deny',
+      permissionDecisionReason: reason,
+    },
+  });
   process.exit(0);
 }
 
@@ -293,9 +332,81 @@ async function handleStop(data) {
     return;
   }
 
-  // Phase 01-02 scope: only fail-closed for unmapped /gsd:*.
-  // Enforcement of required_subagent/artifacts happens in later plans.
+  // Phase 01-03 scope: PreToolUse fail-fast gate. Stop remains minimal here.
   clearTurnState(sessionId);
+}
+
+async function handlePreToolUse(data) {
+  const sessionId = getSessionId(data);
+  if (!sessionId) {
+    // Cannot correlate to a turn state; do not attempt enforcement.
+    return;
+  }
+
+  let state;
+  try {
+    state = readTurnState(sessionId);
+  } catch (e) {
+    failLoud('PreToolUse', `failed to read turn state: ${e && e.message ? e.message : String(e)}`);
+    return;
+  }
+
+  if (!state || state.active !== true) {
+    // Non-GSD turn (or already cleared). Do not deny.
+    return;
+  }
+
+  const command = typeof state.command === 'string' ? state.command : '';
+  if (!command.startsWith('/gsd:')) {
+    return;
+  }
+
+  const toolName = getToolName(data);
+  if (!toolName) {
+    failLoud('PreToolUse', 'missing tool_name (cannot enforce tool gate)');
+    return;
+  }
+
+  const delegated = typeof state.delegated_subagent === 'string' && state.delegated_subagent.trim() !== '';
+  if (delegated) {
+    // Delegation already happened; Phase 01-03 does not enforce anything else here.
+    return;
+  }
+
+  const mapped = Object.prototype.hasOwnProperty.call(COMMAND_MAP, command) ? COMMAND_MAP[command] : null;
+  const allowedPreTools = Array.isArray(mapped?.allowed_pre_tools) ? mapped.allowed_pre_tools : ['Task'];
+  const requiredSubagent = typeof state.required_subagent === 'string' ? state.required_subagent : 'unknown';
+
+  if (!allowedPreTools.includes(toolName)) {
+    preToolDeny(
+      `GSD enforcement: ${command} must delegate first via Task (expected subagent: ${requiredSubagent}). ` +
+        `Tool '${toolName}' is not allowed before delegation.`
+    );
+    return;
+  }
+
+  if (toolName === 'Task') {
+    const input = getToolInput(data);
+    if (!input) {
+      failLoud('PreToolUse', 'Task tool_input missing or not an object (cannot extract subagent_type)');
+      return;
+    }
+
+    const subagentType = input.subagent_type;
+    if (typeof subagentType !== 'string' || subagentType.trim() === '') {
+      failLoud('PreToolUse', 'Task tool_input.subagent_type missing or empty (fail-loud)');
+      return;
+    }
+
+    state.delegated_subagent = subagentType;
+    state.delegated_at_ms = Date.now();
+
+    writeTurnState(sessionId, state);
+
+    return;
+  }
+
+  // Allowed pre-tool but not Task: do nothing.
 }
 
 async function main() {
@@ -332,8 +443,13 @@ async function main() {
       process.exit(0);
     }
 
-    // Not in scope for 01-02: allow other configured events to pass.
-    if (hookEventName === 'PreToolUse' || hookEventName === 'SubagentStop') {
+    if (hookEventName === 'PreToolUse') {
+      await handlePreToolUse(data);
+      process.exit(0);
+    }
+
+    // Not in scope for 01-03: allow SubagentStop to pass.
+    if (hookEventName === 'SubagentStop') {
       process.exit(0);
     }
 
