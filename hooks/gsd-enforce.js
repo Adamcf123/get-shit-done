@@ -186,24 +186,6 @@ function clearTurnState(sessionId) {
   }
 }
 
-function writeRealSample(eventName, data) {
-  if (!DEBUG) return;
-
-  const sessionId = getSessionId(data);
-  const keys = data && typeof data === 'object' ? Object.keys(data).sort() : [];
-
-  // Never persist the full prompt content.
-  const sample = {
-    event: eventName,
-    captured_at_ms: Date.now(),
-    session_id_present: Boolean(sessionId),
-    top_level_keys: keys,
-  };
-
-  ensureStateDir();
-  const filePath = path.join(STATE_DIR, `real-${eventName}-${Date.now()}.json`);
-  fs.writeFileSync(filePath, JSON.stringify(sample, null, 2) + '\n', { encoding: 'utf8', mode: 0o600 });
-}
 
 // Phase 1 explicit mapping (Phase 2 will externalize to JSON).
 const COMMAND_MAP = Object.freeze({
@@ -241,7 +223,6 @@ async function handleUserPromptSubmit(data) {
   const promptText = getPromptText(data);
   const command = extractFirstGsdCommand(promptText);
 
-  writeRealSample('UserPromptSubmit', data);
   if (DEBUG) {
     const keys = data && typeof data === 'object' ? Object.keys(data).sort().join(',') : '';
     debugLog(`UserPromptSubmit keys=[${keys}] command=${command || 'none'}`);
@@ -277,8 +258,6 @@ function stopBlock(reason) {
 }
 
 async function handleStop(data) {
-  writeRealSample('Stop', data);
-
   const sessionId = getSessionId(data);
   if (!sessionId) {
     failLoud('Stop', 'missing session_id (cannot correlate turn state)');
