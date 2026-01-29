@@ -17,13 +17,13 @@
 
 - [ ] **ENF-01**: Hook blocks turn when expected subagent is not called
 - [ ] **ENF-02**: Hook provides clear error message indicating what was expected
-- [ ] **ENF-03**: Hook handles `/gsd:plan-phase` → must spawn `gsd-planner`
-- [ ] **ENF-04**: Hook handles `/gsd:quick` → must use `gsd-executor`
+- [ ] **ENF-03**: Hook handles `/gsd:plan-phase` -> must spawn `gsd-planner`
+- [ ] **ENF-04**: Hook handles `/gsd:quick` -> must use `gsd-executor`
 - [ ] **ENF-05**: Hook detects "fake parallel" (claims parallel but only one Task)
 
 ### Command Mapping
 
-- [ ] **MAP-01**: Mapping of GSD command → expected subagents is maintainable
+- [ ] **MAP-01**: Mapping of GSD command -> expected subagents is maintainable
 - [ ] **MAP-02**: Command mapping includes subagent type (e.g., gsd-planner, gsd-executor)
 - [ ] **MAP-03**: Command mapping supports "at least N" parallel calls detection
 
@@ -88,8 +88,8 @@
 - v1 requirements: 15 total
 - Mapped to Phase 1: 12
 - Mapped to Phase 2: 3
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after initial definition*
+*Last updated: 2026-01-29 after roadmap creation*
