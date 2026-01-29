@@ -403,6 +403,11 @@ async function handlePreToolUse(data) {
 
     writeTurnState(sessionId, state);
 
+    if (DEBUG) {
+      const keys = Object.keys(input).sort().join(',');
+      debugLog(`PreToolUse Task captured subagent_type=${subagentType} tool_input.keys=[${keys}]`);
+    }
+
     return;
   }
 
