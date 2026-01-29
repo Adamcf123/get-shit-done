@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Continuation Format
 
 Standard format for presenting next steps after completing a command or workflow.

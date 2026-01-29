@@ -9,6 +9,7 @@ allowed-tools:
   - SlashCommand
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Restore complete project context and resume work seamlessly from previous session.
 

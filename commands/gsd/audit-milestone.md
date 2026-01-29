@@ -11,6 +11,7 @@ allowed-tools:
   - Write
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Verify milestone achieved its definition of done. Check requirements coverage, cross-phase integration, and end-to-end flows.
 
@@ -166,6 +167,7 @@ Output this markdown directly (not as a code block). Route based on status:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **If passed:**
 
 ## ✓ Milestone {version} — Audit Passed
@@ -189,6 +191,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **If gaps_found:**
 
 ## ⚠ Milestone {version} — Gaps Found
@@ -232,6 +235,7 @@ All requirements covered. Cross-phase integration verified. E2E flows complete.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **If tech_debt (no blockers but accumulated debt):**
 
 ## ⚡ Milestone {version} — Tech Debt Review

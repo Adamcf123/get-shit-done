@@ -7,6 +7,7 @@ arguments:
     required: true
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Switch the model profile used by GSD agents. This controls which Claude model each agent uses, balancing quality vs token spend.
 </objective>

@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # State Template
 
 Template for `.planning/STATE.md` — the project's living memory.

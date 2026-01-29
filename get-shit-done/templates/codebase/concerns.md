@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Codebase Concerns Template
 
 Template for `.planning/codebase/CONCERNS.md` - captures known issues and areas requiring care.

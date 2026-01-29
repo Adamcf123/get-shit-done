@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Testing Patterns Template
 
 Template for `.planning/codebase/TESTING.md` - captures test framework and patterns.

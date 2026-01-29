@@ -9,6 +9,7 @@ allowed-tools:
   - Glob
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Capture an idea, task, or issue that surfaces during a GSD session as a structured todo for later work.
 
@@ -106,6 +107,7 @@ files:
   - [file:lines]
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## Problem
 
 [problem description - enough context for future Claude to understand weeks later]
@@ -161,6 +163,7 @@ Todo saved: .planning/todos/pending/[filename]
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Would you like to:
 
 1. Continue with current work

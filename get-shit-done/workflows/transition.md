@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <required_reading>
 
 **Read these files NOW:**

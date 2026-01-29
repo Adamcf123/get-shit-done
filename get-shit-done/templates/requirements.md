@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Requirements Template
 
 Template for `.planning/REQUIREMENTS.md` — checkable requirements that define "done."

@@ -10,6 +10,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Create all phases necessary to close gaps identified by `/gsd:audit-milestone`.
 
@@ -131,6 +132,7 @@ These gaps are optional. Include them?
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Create these {X} phases? (yes / adjust / defer all optional)
 ```
 
@@ -184,6 +186,7 @@ git commit -m "docs(roadmap): add gap closure phases {N}-{M}"
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **Plan first gap closure phase**
@@ -194,12 +197,14 @@ git commit -m "docs(roadmap): add gap closure phases {N}-{M}"
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:execute-phase {N}` — if plans already exist
 - `cat .planning/ROADMAP.md` — see updated roadmap
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **After all gap phases complete:**
 
 `/gsd:audit-milestone` — re-audit to verify gaps closed

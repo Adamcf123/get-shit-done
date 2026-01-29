@@ -9,6 +9,7 @@ allowed-tools:
   - Glob
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Remove an unstarted future phase from the roadmap and renumber all subsequent phases to maintain a clean, linear sequence.
 
@@ -288,6 +289,7 @@ Current position: Phase {current} of {new-total}
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## What's Next
 
 Would you like to:

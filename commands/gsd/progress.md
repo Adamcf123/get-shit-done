@@ -9,6 +9,7 @@ allowed-tools:
   - SlashCommand
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Check project progress, summarize recent work and what's ahead, then intelligently route to the next action - either executing an existing plan or creating the next one.
 
@@ -150,6 +151,7 @@ Track:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route A: Unexecuted plan exists**
 
 Find the first PLAN.md without matching SUMMARY.md.
@@ -158,6 +160,7 @@ Read its `<objective>` section.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **{phase}-{plan}: [Plan Name]** — [objective summary from PLAN.md]
@@ -171,6 +174,7 @@ Read its `<objective>` section.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route B: Phase needs planning**
 
 Check if `{phase}-CONTEXT.md` exists in phase directory.
@@ -180,6 +184,7 @@ Check if `{phase}-CONTEXT.md` exists in phase directory.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
@@ -197,6 +202,7 @@ Check if `{phase}-CONTEXT.md` exists in phase directory.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **Phase {N}: {Name}** — {Goal from ROADMAP.md}
@@ -207,6 +213,7 @@ Check if `{phase}-CONTEXT.md` exists in phase directory.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:plan-phase {phase}` — skip discussion, plan directly
 - `/gsd:list-phase-assumptions {phase}` — see Claude's assumptions
@@ -216,6 +223,7 @@ Check if `{phase}-CONTEXT.md` exists in phase directory.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route E: UAT gaps need fix plans**
 
 UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
@@ -223,6 +231,7 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ⚠ UAT Gaps Found
 
 **{phase}-UAT.md** has {N} gaps requiring fixes.
@@ -233,6 +242,7 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:execute-phase {phase}` — execute phase plans
 - `/gsd:verify-work {phase}` — run more UAT testing
@@ -242,6 +252,7 @@ UAT.md exists with gaps (diagnosed issues). User needs to plan fixes.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 3: Check milestone status (only when phase complete)**
 
 Read ROADMAP.md and identify:
@@ -261,6 +272,7 @@ State: "Current phase is {X}. Milestone has {N} phases (highest: {Y})."
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route C: Phase complete, more phases remain**
 
 Read ROADMAP.md to get the next phase's name and goal.
@@ -268,6 +280,7 @@ Read ROADMAP.md to get the next phase's name and goal.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ✓ Phase {Z} Complete
 
 ## ▶ Next Up
@@ -280,6 +293,7 @@ Read ROADMAP.md to get the next phase's name and goal.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:plan-phase {Z+1}` — skip discussion, plan directly
 - `/gsd:verify-work {Z}` — user acceptance test before continuing
@@ -289,11 +303,13 @@ Read ROADMAP.md to get the next phase's name and goal.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route D: Milestone complete**
 
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## 🎉 Milestone Complete
 
 All {N} phases finished!
@@ -308,6 +324,7 @@ All {N} phases finished!
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:verify-work` — user acceptance test before completing milestone
 
@@ -316,6 +333,7 @@ All {N} phases finished!
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route F: Between milestones (ROADMAP.md missing, PROJECT.md exists)**
 
 A milestone was completed and archived. Ready to start the next milestone cycle.
@@ -325,6 +343,7 @@ Read MILESTONES.md to find the last completed milestone version.
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ✓ Milestone v{X.Y} Complete
 
 Ready to plan the next milestone.

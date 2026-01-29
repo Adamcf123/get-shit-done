@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <purpose>
 Verify phase goal achievement through goal-backward analysis. Check that the codebase actually delivers what the phase promised, not just that tasks were completed.
 

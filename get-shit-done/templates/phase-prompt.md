@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Phase Prompt Template
 
 > **Note:** Planning methodology is in `agents/gsd-planner.md`.

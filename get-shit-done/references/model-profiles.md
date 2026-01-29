@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Model Profiles
 
 Model profiles control which Claude model each GSD agent uses. This allows balancing quality vs token spend.

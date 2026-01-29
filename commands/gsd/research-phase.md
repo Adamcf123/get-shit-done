@@ -8,6 +8,7 @@ allowed-tools:
   - Task
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Research how to implement a phase. Spawns gsd-phase-researcher agent with phase context.
 

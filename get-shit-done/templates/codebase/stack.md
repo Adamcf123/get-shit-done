@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Technology Stack Template
 
 Template for `.planning/codebase/STACK.md` - captures the technology foundation.

@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Architecture Template
 
 Template for `.planning/codebase/ARCHITECTURE.md` - captures conceptual code organization.

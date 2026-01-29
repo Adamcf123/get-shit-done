@@ -9,6 +9,7 @@ allowed-tools:
   - Glob
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Analyze a phase and present Claude's assumptions about technical approach, implementation order, scope boundaries, risk areas, and dependencies.
 

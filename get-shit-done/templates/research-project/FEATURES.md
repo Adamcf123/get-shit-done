@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Features Research Template
 
 Template for `.planning/research/FEATURES.md` — feature landscape for the project domain.

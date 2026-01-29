@@ -575,7 +575,7 @@ function copyFlattenedCommands(srcDir, destDir, prefix, pathPrefix, runtime) {
  * @param {string} pathPrefix - Path prefix for file references
  * @param {string} runtime - Target runtime ('claude', 'opencode', 'gemini')
  */
-function copyWithPathReplacement(srcDir, destDir, pathPrefix, runtime) {
+function copyWithPathReplacement(srcDir, destDir, pathPrefix, runtime, languageDirective = '') {
   const isOpencode = runtime === 'opencode';
   const dirName = getDirName(runtime);
 
@@ -592,13 +592,14 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, runtime) {
     const destPath = path.join(destDir, entry.name);
 
     if (entry.isDirectory()) {
-      copyWithPathReplacement(srcPath, destPath, pathPrefix, runtime);
+      copyWithPathReplacement(srcPath, destPath, pathPrefix, runtime, languageDirective);
     } else if (entry.name.endsWith('.md')) {
       // Always replace ~/.claude/ as it is the source of truth in the repo
       let content = fs.readFileSync(srcPath, 'utf8');
       const claudeDirRegex = /~\/\.claude\//g;
       content = content.replace(claudeDirRegex, pathPrefix);
-      
+      // Replace language directive placeholder (uses closure to access languageDirective)
+      content = content.replace(/\{\{LANGUAGE_DIRECTIVE\}\}/g, languageDirective);
       // Convert frontmatter for opencode compatibility
       if (isOpencode) {
         content = convertClaudeToOpencodeFrontmatter(content);
@@ -1020,11 +1021,11 @@ function install(isGlobal, runtime = 'claude') {
       const lang = templateConfig.output_language || 'english';
       const langDirectives = {
         'english': '',
-        'chinese': '使用中文进行所有输出。\n\n',
-        'spanish': 'Use Spanish for all outputs.\n\n',
-        'japanese': '日本語で出力してください。\n\n'
+        'chinese': '默认中文沟通；代码标识符保留原文。\n\n',
+        'spanish': '默认西班牙语沟通；代码标识符保留原文。\n\n',
+        'japanese': '默认日语沟通；代码标识符保留原文。\n\n'
       };
-      languageDirective = langDirectives[lang] || `Use ${lang} for all outputs.\n\n`;
+      languageDirective = langDirectives[lang] || `默认${lang}语言沟通；代码标识符保留原文。\n\n`;
     } catch (e) {
       // Default to empty if config can't be read
       languageDirective = '';
@@ -1060,7 +1061,7 @@ function install(isGlobal, runtime = 'claude') {
     
     const gsdSrc = path.join(src, 'commands', 'gsd');
     const gsdDest = path.join(commandsDir, 'gsd');
-    copyWithPathReplacement(gsdSrc, gsdDest, pathPrefix, runtime);
+    copyWithPathReplacement(gsdSrc, gsdDest, pathPrefix, runtime, languageDirective);
     if (verifyInstalled(gsdDest, 'commands/gsd')) {
       console.log(`  ${green}✓${reset} Installed commands/gsd`);
     } else {
@@ -1071,7 +1072,7 @@ function install(isGlobal, runtime = 'claude') {
   // Copy get-shit-done skill with path replacement
   const skillSrc = path.join(src, 'get-shit-done');
   const skillDest = path.join(targetDir, 'get-shit-done');
-  copyWithPathReplacement(skillSrc, skillDest, pathPrefix, runtime);
+  copyWithPathReplacement(skillSrc, skillDest, pathPrefix, runtime, languageDirective);
   if (verifyInstalled(skillDest, 'get-shit-done')) {
     console.log(`  ${green}✓${reset} Installed get-shit-done`);
   } else {

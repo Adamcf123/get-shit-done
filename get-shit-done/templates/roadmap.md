@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Roadmap Template
 
 Template for `.planning/ROADMAP.md`.

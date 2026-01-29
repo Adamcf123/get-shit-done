@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <purpose>
 Extract implementation decisions that downstream agents need. Analyze the phase to identify gray areas, let the user choose what to discuss, then deep-dive each selected area until satisfied.
 

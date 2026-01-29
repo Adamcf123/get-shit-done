@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Verification Report Template
 
 Template for `.planning/phases/XX-name/{phase}-VERIFICATION.md` — phase goal verification results.

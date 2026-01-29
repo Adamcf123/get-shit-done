@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # External Integrations Template
 
 Template for `.planning/codebase/INTEGRATIONS.md` - captures external service dependencies.

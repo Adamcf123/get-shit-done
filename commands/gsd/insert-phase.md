@@ -8,6 +8,7 @@ allowed-tools:
   - Bash
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Insert a decimal phase for urgent work discovered mid-milestone that must be completed between existing integer phases.
 
@@ -185,6 +186,7 @@ Project state updated: .planning/STATE.md
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **Phase {decimal_phase}: {description}** — urgent insertion
@@ -195,6 +197,7 @@ Project state updated: .planning/STATE.md
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - Review insertion impact: Check if Phase {next_integer} dependencies still make sense
 - Review roadmap

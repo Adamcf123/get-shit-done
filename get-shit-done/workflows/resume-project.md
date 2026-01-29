@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <trigger>
 Use this workflow when:
 - Starting a new session on an existing project

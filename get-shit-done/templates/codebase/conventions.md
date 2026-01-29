@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Coding Conventions Template
 
 Template for `.planning/codebase/CONVENTIONS.md` - captures coding style and patterns.

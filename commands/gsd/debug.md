@@ -9,6 +9,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Debug issues using scientific method with subagent isolation.
 

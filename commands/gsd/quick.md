@@ -13,6 +13,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Execute small, ad-hoc tasks with GSD guarantees (atomic commits, STATE.md tracking) while skipping optional agents (research, plan-checker, verifier).
 
@@ -55,6 +56,7 @@ Store resolved models for use in Task calls below.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 1: Pre-flight validation**
 
 Check that an active GSD project exists:
@@ -73,6 +75,7 @@ Quick tasks can run mid-phase - validation only checks ROADMAP.md exists, not ph
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 2: Get task description**
 
 Prompt user interactively for the task description:
@@ -96,6 +99,7 @@ slug=$(echo "$DESCRIPTION" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' 
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 3: Calculate next quick task number**
 
 Ensure `.planning/quick/` directory exists and find the next sequential number:
@@ -116,6 +120,7 @@ fi
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 4: Create quick task directory**
 
 Create the directory for this quick task:
@@ -135,6 +140,7 @@ Store `$QUICK_DIR` for use in orchestration.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 5: Spawn planner (quick mode)**
 
 Spawn gsd-planner with quick mode context:
@@ -180,6 +186,7 @@ If plan not found, error: "Planner failed to create ${next_num}-PLAN.md"
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 6: Spawn executor**
 
 Spawn gsd-executor with plan reference:
@@ -216,6 +223,7 @@ Note: For quick tasks producing multiple plans (rare), spawn executors in parall
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 7: Update STATE.md**
 
 Update STATE.md with quick task completion record.
@@ -252,6 +260,7 @@ Use Edit tool to make these changes atomically
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Step 8: Final commit and completion**
 
 Stage and commit quick task artifacts:
@@ -282,6 +291,7 @@ Display completion output:
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 GSD > QUICK TASK COMPLETE
 
 Quick Task ${next_num}: ${DESCRIPTION}
@@ -291,6 +301,7 @@ Commit: ${commit_hash}
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Ready for next task: /gsd:quick
 ```
 

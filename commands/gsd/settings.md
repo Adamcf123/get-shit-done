@@ -7,6 +7,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Allow users to toggle workflow agents on/off and select model profile via interactive settings.
 

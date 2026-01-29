@@ -9,6 +9,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 
 Initialize a new project through unified flow: questioning → research (optional) → requirements → roadmap.
@@ -680,6 +681,7 @@ Here are the features for [domain]:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## [Next Category]
 ...
 ```
@@ -766,6 +768,7 @@ Show every requirement (not counts) for user confirmation:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Does this capture what you're building? (yes / adjust)
 ```
 
@@ -843,6 +846,7 @@ Read the created ROADMAP.md and present it nicely inline:
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## Proposed Roadmap
 
 **[N] phases** | **[X] requirements mapped** | All v1 requirements covered ✓
@@ -959,6 +963,7 @@ Present completion with next steps:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - /gsd:plan-phase 1 — skip discussion, plan directly
 

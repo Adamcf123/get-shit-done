@@ -3,6 +3,7 @@ name: gsd:help
 description: Show available GSD commands and usage guide
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Display the complete GSD command reference.
 

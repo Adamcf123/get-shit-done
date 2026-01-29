@@ -14,6 +14,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Execute all plans in a phase using wave-based parallel execution.
 
@@ -145,6 +146,7 @@ Output this markdown directly (not as a code block). Route based on status:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route A: Phase verified, more phases remain**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -176,6 +178,7 @@ Goal verified ✓
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route B: Phase verified, milestone complete**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -207,6 +210,7 @@ All phase goals verified ✓
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route C: Gaps found — need additional planning**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -242,6 +246,7 @@ Report: .planning/phases/{phase_dir}/{phase}-VERIFICATION.md
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 After user runs /gsd:plan-phase {Z} --gaps:
 1. Planner reads VERIFICATION.md gaps
 2. Creates plans 04, 05, etc. to close gaps

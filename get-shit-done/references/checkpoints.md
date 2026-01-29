@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <overview>
 Plans execute autonomously. Checkpoints formalize the interaction points where human verification or decisions are needed.
 

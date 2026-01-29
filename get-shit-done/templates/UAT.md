@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # UAT Template
 
 Template for `.planning/phases/XX-name/{phase}-UAT.md` — persistent UAT session tracking.

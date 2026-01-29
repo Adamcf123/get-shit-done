@@ -3,6 +3,7 @@ name: gsd:update
 description: Update GSD to latest version with changelog display
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Check for GSD updates, install if available, and display what changed.
 

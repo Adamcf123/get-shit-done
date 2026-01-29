@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Debug Template
 
 Template for `.planning/debug/[slug].md` — active debug session tracking.

@@ -12,6 +12,7 @@ allowed-tools:
   - Task
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Validate built features through conversational testing with persistent state.
 
@@ -73,6 +74,7 @@ Output this markdown directly (not as a code block). Route based on UAT results:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route A: All tests pass, more phases remain**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -104,6 +106,7 @@ UAT complete ✓
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route B: All tests pass, milestone complete**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -134,6 +137,7 @@ Final phase verified ✓
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route C: Issues found, fix plans ready**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -170,6 +174,7 @@ Fix plans verified ✓
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Route D: Issues found, planning blocked**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

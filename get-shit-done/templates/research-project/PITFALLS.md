@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Pitfalls Research Template
 
 Template for `.planning/research/PITFALLS.md` — common mistakes to avoid in the project domain.

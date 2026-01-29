@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <purpose>
 Execute all plans in a phase using wave-based parallel execution. Orchestrator stays lean by delegating plan execution to subagents.
 </purpose>

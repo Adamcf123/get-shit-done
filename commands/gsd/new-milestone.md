@@ -10,6 +10,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Start a new milestone through unified flow: questioning → research (optional) → requirements → roadmap.
 
@@ -419,6 +420,7 @@ Here are the features for [new capabilities]:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## [Next Category]
 ...
 ```
@@ -497,6 +499,7 @@ Show every requirement (not counts) for user confirmation:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Does this capture what you're building? (yes / adjust)
 ```
 
@@ -585,6 +588,7 @@ Read the created ROADMAP.md and present it nicely inline:
 ```
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## Proposed Roadmap
 
 **[N] phases** | **[X] requirements mapped** | All milestone requirements covered ✓
@@ -694,6 +698,7 @@ Present completion with next steps:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:plan-phase [N]` — skip discussion, plan directly
 

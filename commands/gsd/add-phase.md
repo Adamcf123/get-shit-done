@@ -8,6 +8,7 @@ allowed-tools:
   - Bash
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Add a new integer phase to the end of the current milestone in the roadmap.
 
@@ -166,6 +167,7 @@ Project state updated: .planning/STATE.md
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 ## ▶ Next Up
 
 **Phase {N}: {description}**
@@ -176,6 +178,7 @@ Project state updated: .planning/STATE.md
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 **Also available:**
 - `/gsd:add-phase <description>` — add another phase
 - Review roadmap

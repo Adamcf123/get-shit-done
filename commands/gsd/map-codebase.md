@@ -11,6 +11,7 @@ allowed-tools:
   - Task
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Analyze existing codebase using parallel gsd-codebase-mapper agents to produce structured codebase documents.
 

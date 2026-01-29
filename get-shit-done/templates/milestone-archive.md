@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Milestone Archive Template
 
 This template is used by the complete-milestone workflow to create archive files in `.planning/milestones/`.

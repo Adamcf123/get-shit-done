@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Milestone Entry Template
 
 Add this entry to `.planning/MILESTONES.md` when completing a milestone:

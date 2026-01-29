@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <planning_config>
 
 Configuration options for `.planning/` directory behavior.

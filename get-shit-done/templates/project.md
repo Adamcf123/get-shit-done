@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # PROJECT.md Template
 
 Template for `.planning/PROJECT.md` — the living project context document.

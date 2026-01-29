@@ -10,6 +10,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 List all pending todos, allow selection, load full context for the selected todo, and route to appropriate action.
 
@@ -37,6 +38,7 @@ Todos are captured during work sessions with /gsd:add-todo.
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Would you like to:
 
 1. Continue with current phase (/gsd:progress)
@@ -73,6 +75,7 @@ Pending Todos:
 
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 Reply with a number to view details, or:
 - `/gsd:check-todos [area]` to filter by area
 - `q` to exit

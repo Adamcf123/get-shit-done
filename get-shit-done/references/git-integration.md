@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 <overview>
 Git integration for GSD framework.
 </overview>

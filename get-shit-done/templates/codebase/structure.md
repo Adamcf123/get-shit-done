@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Structure Template
 
 Template for `.planning/codebase/STRUCTURE.md` - captures physical file organization.

@@ -7,6 +7,7 @@ allowed-tools:
   - Bash
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Create `.continue-here.md` handoff file to preserve complete work state across sessions.
 
@@ -49,6 +50,7 @@ status: in_progress
 last_updated: [timestamp]
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <current_state>
 [Where exactly are we? Immediate context]
 </current_state>

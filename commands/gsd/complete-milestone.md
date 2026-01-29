@@ -9,6 +9,7 @@ allowed-tools:
   - Bash
 ---
 
+{{LANGUAGE_DIRECTIVE}}
 <objective>
 Mark milestone {{version}} complete, archive to milestones/, and update ROADMAP.md and REQUIREMENTS.md.
 

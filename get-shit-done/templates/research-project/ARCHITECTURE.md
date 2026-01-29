@@ -1,3 +1,5 @@
+{{LANGUAGE_DIRECTIVE}}
+
 # Architecture Research Template
 
 Template for `.planning/research/ARCHITECTURE.md` — system structure patterns for the project domain.
