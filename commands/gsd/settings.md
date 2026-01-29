@@ -58,10 +58,7 @@ AskUserQuestion([
     multiSelect: false,
     options: [
       { label: "English", description: "All prompts in English (default)" },
-      { label: "Chinese (中文)", description: "使用中文生成所有提示词" },
-      { label: "Spanish (Español)", description: "Todos los prompts en español" },
-      { label: "Japanese (日本語)", description: "すべてのプロンプトを日本語で生成" },
-      { label: "Other", description: "Specify a custom language" }
+      { label: "Chinese (中文)", description: "使用中文生成所有提示词（代码及代码相关标识符除外）" }
     ]
   },
   {
@@ -104,7 +101,7 @@ Merge new settings into existing config.json:
 {
   ...existing_config,
   "model_profile": "quality" | "balanced" | "budget",
-  "output_language": "english" | "chinese" | "spanish" | "japanese" | "custom",
+  "output_language": "english" | "chinese",
   "workflow": {
     "research": true/false,
     "plan_check": true/false,
@@ -127,7 +124,7 @@ Display:
 | Setting              | Value |
 |----------------------|-------|
 | Model Profile        | {quality/balanced/budget} |
-| Output Language      | {english/chinese/spanish/japanese/custom} |
+| Output Language      | {english/chinese} |
 | Plan Researcher      | {On/Off} |
 | Plan Checker         | {On/Off} |
 | Execution Verifier   | {On/Off} |
