@@ -4,7 +4,7 @@
 Phase 1: Output Language Option
 
 ## Status
-In Progress - Quick task initiated
+Completed - Quick task finished
 
 ## Decisions
 - Default language: English
@@ -13,5 +13,11 @@ In Progress - Quick task initiated
 ## Blockers/Concerns
 None
 
+## Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Add output language option | 2026-01-29 | 57a251b | [001-add-output-language-option](./quick/001-add-output-language-option/) |
+
 ## Last Activity
-2026-01-29 - Started quick task: Add output language option
+2026-01-29 - Completed quick task 001: Add output language option
