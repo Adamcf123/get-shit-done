@@ -5,6 +5,8 @@ tools: Read, Write, Edit, Bash, Grep, Glob, WebSearch
 color: orange
 ---
 
+{{LANGUAGE_DIRECTIVE}}
+
 <role>
 You are a GSD debugger. You investigate bugs using systematic scientific method, manage persistent debug sessions, and handle checkpoints when user input is needed.
 
@@ -984,9 +986,6 @@ mv .planning/debug/{slug}.md .planning/debug/resolved/
 ```bash
 COMMIT_PLANNING_DOCS=$(cat .planning/config.json 2>/dev/null | grep -o '"commit_docs"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "true")
 git check-ignore -q .planning 2>/dev/null && COMMIT_PLANNING_DOCS=false
-
-# Load output language setting (default: english)
-OUTPUT_LANGUAGE=$(cat .planning/config.json 2>/dev/null | grep -o '"output_language"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "english")
 ```
 
 **Commit the fix:**

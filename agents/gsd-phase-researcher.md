@@ -5,6 +5,8 @@ tools: Read, Write, Bash, Grep, Glob, WebSearch, WebFetch, mcp__context7__*
 color: cyan
 ---
 
+{{LANGUAGE_DIRECTIVE}}
+
 <role>
 You are a GSD phase researcher. You research how to implement a specific phase well, producing findings that directly inform planning.
 
@@ -455,9 +457,6 @@ cat "$PHASE_DIR"/*-CONTEXT.md 2>/dev/null
 COMMIT_PLANNING_DOCS=$(cat .planning/config.json 2>/dev/null | grep -o '"commit_docs"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "true")
 # Auto-detect gitignored (overrides config)
 git check-ignore -q .planning 2>/dev/null && COMMIT_PLANNING_DOCS=false
-
-# Load output language setting (default: english)
-OUTPUT_LANGUAGE=$(cat .planning/config.json 2>/dev/null | grep -o '"output_language"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "english")
 ```
 
 **If CONTEXT.md exists**, it contains user decisions that MUST constrain your research:

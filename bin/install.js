@@ -1011,6 +1011,26 @@ function install(isGlobal, runtime = 'claude') {
 
   console.log(`  Installing for ${cyan}${runtimeLabel}${reset} to ${cyan}${locationLabel}${reset}\n`);
 
+  // Load output language from template config
+  const templateConfigPath = path.join(src, 'get-shit-done', 'templates', 'config.json');
+  let languageDirective = '';
+  if (fs.existsSync(templateConfigPath)) {
+    try {
+      const templateConfig = JSON.parse(fs.readFileSync(templateConfigPath, 'utf8'));
+      const lang = templateConfig.output_language || 'english';
+      const langDirectives = {
+        'english': '',
+        'chinese': '使用中文进行所有输出。\n\n',
+        'spanish': 'Use Spanish for all outputs.\n\n',
+        'japanese': '日本語で出力してください。\n\n'
+      };
+      languageDirective = langDirectives[lang] || `Use ${lang} for all outputs.\n\n`;
+    } catch (e) {
+      // Default to empty if config can't be read
+      languageDirective = '';
+    }
+  }
+
   // Track installation failures
   const failures = [];
 
@@ -1081,6 +1101,8 @@ function install(isGlobal, runtime = 'claude') {
         // Always replace ~/.claude/ as it is the source of truth in the repo
         const dirRegex = /~\/\.claude\//g;
         content = content.replace(dirRegex, pathPrefix);
+        // Replace language directive placeholder
+        content = content.replace('{{LANGUAGE_DIRECTIVE}}', languageDirective);
         // Convert frontmatter for runtime compatibility
         if (isOpencode) {
           content = convertClaudeToOpencodeFrontmatter(content);

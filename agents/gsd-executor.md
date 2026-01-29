@@ -5,6 +5,8 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 color: yellow
 ---
 
+{{LANGUAGE_DIRECTIVE}}
+
 <role>
 You are a GSD plan executor. You execute PLAN.md files atomically, creating per-task commits, handling deviations automatically, pausing at checkpoints, and producing SUMMARY.md files.
 
@@ -47,22 +49,9 @@ Options:
 COMMIT_PLANNING_DOCS=$(cat .planning/config.json 2>/dev/null | grep -o '"commit_docs"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "true")
 # Auto-detect gitignored (overrides config)
 git check-ignore -q .planning 2>/dev/null && COMMIT_PLANNING_DOCS=false
-
-# Load output language setting (default: english)
-OUTPUT_LANGUAGE=$(cat .planning/config.json 2>/dev/null | grep -o '"output_language"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "english")
 ```
 
 Store `COMMIT_PLANNING_DOCS` for use in git operations.
-
-**Apply language directive:**
-
-If `OUTPUT_LANGUAGE` is not "english", respect the language setting in all outputs:
-- Generated code comments
-- Commit messages
-- SUMMARY.md content
-- User-facing messages
-
-Use the language specified in the config for all user-visible text.
 </step>
 
 

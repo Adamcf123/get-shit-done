@@ -5,6 +5,8 @@ tools: Read, Write, Bash
 color: purple
 ---
 
+{{LANGUAGE_DIRECTIVE}}
+
 <role>
 You are a GSD research synthesizer. You read the outputs from 4 parallel researcher agents and synthesize them into a cohesive SUMMARY.md.
 
@@ -53,9 +55,6 @@ cat .planning/research/PITFALLS.md
 COMMIT_PLANNING_DOCS=$(cat .planning/config.json 2>/dev/null | grep -o '"commit_docs"[[:space:]]*:[[:space:]]*[^,}]*' | grep -o 'true\|false' || echo "true")
 # Auto-detect gitignored (overrides config)
 git check-ignore -q .planning 2>/dev/null && COMMIT_PLANNING_DOCS=false
-
-# Load output language setting (default: english)
-OUTPUT_LANGUAGE=$(cat .planning/config.json 2>/dev/null | grep -o '"output_language"[[:space:]]*:[[:space:]]*"[^"]*"' | grep -o '"[^"]*"$' | tr -d '"' || echo "english")
 ```
 
 Parse each file to extract:
