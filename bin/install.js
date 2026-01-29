@@ -769,7 +769,7 @@ function uninstall(isGlobal, runtime = 'claude') {
   // 4. Remove GSD hooks
   const hooksDir = path.join(targetDir, 'hooks');
   if (fs.existsSync(hooksDir)) {
-    const gsdHooks = ['gsd-statusline.js', 'gsd-check-update.js', 'gsd-check-update.sh'];
+    const gsdHooks = ['gsd-statusline.js', 'gsd-check-update.js', 'gsd-check-update.sh', 'gsd-enforce.js'];
     let hookCount = 0;
     for (const hook of gsdHooks) {
       const hookPath = path.join(hooksDir, hook);
@@ -798,28 +798,35 @@ function uninstall(isGlobal, runtime = 'claude') {
       console.log(`  ${green}✓${reset} Removed GSD statusline from settings`);
     }
 
-    // Remove GSD hooks from SessionStart
-    if (settings.hooks && settings.hooks.SessionStart) {
-      const before = settings.hooks.SessionStart.length;
-      settings.hooks.SessionStart = settings.hooks.SessionStart.filter(entry => {
-        if (entry.hooks && Array.isArray(entry.hooks)) {
-          // Filter out GSD hooks
-          const hasGsdHook = entry.hooks.some(h =>
-            h.command && (h.command.includes('gsd-check-update') || h.command.includes('gsd-statusline'))
-          );
-          return !hasGsdHook;
+    // Remove GSD hooks from settings (all hook event types)
+    if (settings.hooks) {
+      const beforeHooksJson = JSON.stringify(settings.hooks);
+
+      for (const eventType of Object.keys(settings.hooks)) {
+        const entries = settings.hooks[eventType];
+        if (!Array.isArray(entries)) continue;
+
+        settings.hooks[eventType] = entries.filter(entry => {
+          if (entry.hooks && Array.isArray(entry.hooks)) {
+            const hasGsdHook = entry.hooks.some(h =>
+              h.command && (h.command.includes('gsd-check-update') || h.command.includes('gsd-statusline') || h.command.includes('gsd-enforce'))
+            );
+            return !hasGsdHook;
+          }
+          return true;
+        });
+
+        if (settings.hooks[eventType].length === 0) {
+          delete settings.hooks[eventType];
         }
-        return true;
-      });
-      if (settings.hooks.SessionStart.length < before) {
+      }
+
+      const afterHooksJson = JSON.stringify(settings.hooks);
+      if (beforeHooksJson !== afterHooksJson) {
         settingsModified = true;
         console.log(`  ${green}✓${reset} Removed GSD hooks from settings`);
       }
-      // Clean up empty array
-      if (settings.hooks.SessionStart.length === 0) {
-        delete settings.hooks.SessionStart;
-      }
-      // Clean up empty hooks object
+
       if (Object.keys(settings.hooks).length === 0) {
         delete settings.hooks;
       }
@@ -1175,6 +1182,10 @@ function install(isGlobal, runtime = 'claude') {
     ? buildHookCommand(targetDir, 'gsd-check-update.js')
     : 'node ' + dirName + '/hooks/gsd-check-update.js';
 
+  const enforceCommand = isGlobal
+    ? buildHookCommand(targetDir, 'gsd-enforce.js')
+    : 'node ' + dirName + '/hooks/gsd-enforce.js';
+
   // Enable experimental agents for Gemini CLI (required for custom sub-agents)
   if (isGemini) {
     if (!settings.experimental) {
@@ -1186,11 +1197,13 @@ function install(isGlobal, runtime = 'claude') {
     }
   }
 
-  // Configure SessionStart hook for update checking (skip for opencode)
+  // Configure Claude Code hooks (skip for opencode - different hook system)
   if (!isOpencode) {
     if (!settings.hooks) {
       settings.hooks = {};
     }
+
+    // 1) SessionStart hook for update checking
     if (!settings.hooks.SessionStart) {
       settings.hooks.SessionStart = [];
     }
@@ -1210,6 +1223,41 @@ function install(isGlobal, runtime = 'claude') {
       });
       console.log(`  ${green}✓${reset} Configured update check hook`);
     }
+
+    // 2) Enforcement hook across the four lifecycle events
+    const enforceEvents = ['UserPromptSubmit', 'PreToolUse', 'SubagentStop', 'Stop'];
+
+    for (const eventName of enforceEvents) {
+      if (!settings.hooks[eventName]) {
+        settings.hooks[eventName] = [];
+      }
+
+      const alreadyRegistered = settings.hooks[eventName].some(entry =>
+        entry.hooks && entry.hooks.some(h => h.command && h.command.includes('gsd-enforce'))
+      );
+
+      if (alreadyRegistered) {
+        continue;
+      }
+
+      const hookEntry = {
+        hooks: [
+          {
+            type: 'command',
+            command: enforceCommand
+          }
+        ]
+      };
+
+      // PreToolUse supports a matcher; use wildcard to apply globally.
+      if (eventName === 'PreToolUse') {
+        hookEntry.matcher = '*';
+      }
+
+      settings.hooks[eventName].push(hookEntry);
+    }
+
+    console.log(`  ${green}✓${reset} Configured enforcement hook`);
   }
 
   return { settingsPath, settings, statuslineCommand, runtime };
