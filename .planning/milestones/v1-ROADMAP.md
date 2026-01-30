@@ -1,23 +1,17 @@
-# Roadmap: GSD Subagent Enforcement Hook
+# Milestone v1: GSD Subagent Enforcement Hook
+
+**Status:** ✅ SHIPPED 2026-01-30
+**Phases:** 1-2
+**Total Plans:** 7
 
 ## Overview
 
-This roadmap delivers a Claude Code hook system that enforces GSD orchestrator commands to delegate to their required subagents. The system detects when commands like `/gsd:plan-phase` skip spawning `gsd-planner` and blocks the turn with clear remediation guidance. The journey begins with core detection and blocking capabilities using Claude Code's native hook system (UserPromptSubmit, PreToolUse, SubagentStop), then adds sophisticated detection for complex patterns like "fake parallel" execution and maintainable configuration for evolving GSD commands.
+This milestone delivers a Claude Code hook system that enforces GSD orchestrator commands to delegate to their required subagents. The system detects when commands like `/gsd:plan-phase` skip spawning `gsd-planner` and blocks the turn with clear remediation guidance. The journey begins with core detection and blocking capabilities using Claude Code's native hook system (UserPromptSubmit, PreToolUse, SubagentStop, Stop), then adds sophisticated detection for complex patterns like "fake parallel" execution and maintainable configuration for evolving GSD commands.
 
 ## Phases
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
-
-Decimal phases appear between their surrounding integers in numeric order.
-
-- [x] **Phase 1: Core Enforcement Hook** - Detect GSD commands and block when expected subagents are not called
-- [x] **Phase 2: Advanced Detection & Configuration** - Detect complex patterns and maintainable command mappings
-
-## Phase Details
-
 ### Phase 1: Core Enforcement Hook
+
 **Goal**: Hook can detect GSD commands and block when expected subagents are not called, preventing silent bypass of architectural guarantees
 **Depends on**: Nothing (first phase)
 **Requirements**: HOOK-01, HOOK-02, HOOK-03, HOOK-04, HOOK-05, ENF-01, ENF-02, ENF-03, ENF-04, ERR-01, ERR-02, ERR-03
@@ -36,7 +30,10 @@ Plans:
 - [x] 01-04-PLAN.md — Stop 端到端强制执行（required_subagent + artifacts + SubagentStop 信号）
 - [x] 01-05-PLAN.md — fail-loud 与阻止消息 UX + 真实环境人工验收
 
+**Completed:** 2026-01-30
+
 ### Phase 2: Advanced Detection & Configuration
+
 **Goal**: Hook can detect complex deception patterns like "fake parallel" claims and provide maintainable configuration for evolving GSD commands
 **Depends on**: Phase 1 (requires working detection and blocking infrastructure)
 **Requirements**: ENF-05, MAP-01, MAP-02, MAP-03
@@ -50,12 +47,39 @@ Plans:
 - [x] 02-01-PLAN.md — 外置命令映射配置（loadCommandMapping + config.json 模板）
 - [x] 02-02-PLAN.md — 假并行检测（extractParallelClaim + validateParallelCalls）
 
-## Progress
+**Completed:** 2026-01-30
 
-**Execution Order:**
-Phases execute in numeric order: 1 -> 2
+---
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Core Enforcement Hook | 5/5 | ✓ Complete | 2026-01-30 |
-| 2. Advanced Detection & Configuration | 2/2 | ✓ Complete | 2026-01-30 |
+## Milestone Summary
+
+**Key Decisions:**
+
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| Hook skeleton fails loudly by blocking/denying (exit 0 + JSON) on supported events | Prevent silent bypass | ✓ Good |
+| Turn state persists in os.tmpdir()/gsd-enforce keyed by session_id | Cross-event correlation | ✓ Good |
+| PreToolUse denies any non-allowed tool before delegation | Fail-fast enforcement | ✓ Good |
+| Config loaded in each handler (separate processes) | Process isolation | ✓ Good |
+| Only block complete deception (claimed N, actual 1); tolerate partial parallel | Avoid over-enforcement | ✓ Good |
+
+**Issues Resolved:**
+
+- Hook installation/uninstallation with idempotent de-duplication
+- Turn state persistence across hook events
+- Fail-loud error handling with structured error codes
+- External command mapping configuration with merge-override semantics
+- Fake parallel detection with tolerant validation
+
+**Issues Deferred:**
+
+None.
+
+**Technical Debt Incurred:**
+
+None.
+
+---
+
+_For current project status, see .planning/ROADMAP.md_
+_Archived: 2026-01-30 as part of v1 milestone completion_
