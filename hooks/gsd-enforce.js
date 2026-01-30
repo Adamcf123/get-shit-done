@@ -54,6 +54,35 @@ function extractParallelClaim(promptText) {
   return null;
 }
 
+/**
+ * Validate parallel calls against claimed count.
+ *
+ * Only blocks complete deception: claimed N parallel but only 1 actual Task call.
+ * Tolerates partial parallel (actual > 1 but < expected).
+ *
+ * @param {object} state - Turn state with expected_parallel_count and task_call_count
+ * @returns {{ error_code: string, expected: number, actual: number }|null}
+ */
+function validateParallelCalls(state) {
+  const expected = state.expected_parallel_count;
+  const actual = state.task_call_count || 0;
+
+  // No parallel claim or claim < 2
+  if (!expected || expected < 2) return null;
+
+  // Only block complete deception: claimed N but only 1 call
+  if (actual === 1 && expected > 1) {
+    return {
+      error_code: 'USER_FAKE_PARALLEL',
+      expected,
+      actual,
+    };
+  }
+
+  // Tolerate partial parallel (actual > 1 but < expected)
+  return null;
+}
+
 // Configuration cache (loaded once at startup, no hot-reload)
 let projectCommandMapping = null;
 let configLoadAttempted = false;
@@ -836,7 +865,20 @@ async function handleStop(data) {
     }
   }
 
-  // 2) expected_artifacts enforcement (Phase 01-04)
+  // 2) fake-parallel detection (Phase 02-02)
+  const parallelResult = validateParallelCalls(state);
+  if (parallelResult) {
+    stopBlock(
+      formatBlockMessage({
+        command,
+        error_code: parallelResult.error_code,
+        next_step: `下一步：声称并行启动 ${parallelResult.expected} 个子代理，但实际只调用了 ${parallelResult.actual} 次 Task。请真正并行调用 Task（在同一消息中发送多个 Task 调用），或移除并行声明。`,
+      })
+    );
+    return;
+  }
+
+  // 3) expected_artifacts enforcement (Phase 01-04)
   try {
     await enforceExpectedArtifactsAtStop(data, state, mapped);
   } catch (e) {
@@ -923,6 +965,14 @@ async function handlePreToolUse(data) {
   }
 
   const delegated = typeof state.delegated_subagent === 'string' && state.delegated_subagent.trim() !== '';
+
+  // If Task tool and already delegated, still count for fake-parallel detection
+  if (delegated && toolName === 'Task') {
+    state.task_call_count = (state.task_call_count || 0) + 1;
+    writeTurnState(sessionId, state);
+    return;
+  }
+
   if (delegated) {
     // Delegation already happened; Phase 01-03 does not enforce anything else here.
     return;
@@ -962,6 +1012,9 @@ async function handlePreToolUse(data) {
 
     state.delegated_subagent = subagentType;
     state.delegated_at_ms = Date.now();
+
+    // Increment Task call count for fake-parallel detection
+    state.task_call_count = (state.task_call_count || 0) + 1;
 
     writeTurnState(sessionId, state);
 
