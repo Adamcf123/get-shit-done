@@ -17,6 +17,43 @@ const path = require('path');
 const STATE_DIR = path.join(os.tmpdir(), 'gsd-enforce');
 const DEBUG = process.env.GSD_ENFORCE_DEBUG === '1';
 
+// Parallel claim detection patterns (Chinese and English)
+// These patterns anchor on parallel keywords to avoid false positives like "Phase 4"
+const PARALLEL_PATTERNS = [
+  // Chinese patterns
+  /(?:并行|同时)(?:启动|spawn|创建|运行)\s*(\d+)\s*个/i,
+  /启动\s*(\d+)\s*个\s*(?:并行|同时)/i,
+
+  // English patterns
+  /spawn(?:ing)?\s+(\d+)\s+\w+\s+(?:in\s+)?parallel/i,
+  /(\d+)\s+parallel\s+(?:agents?|researchers?|executors?|subagents?|tasks?)/i,
+  /(?:run(?:ning)?|start(?:ing)?|launch(?:ing)?)\s+(\d+)\s+\w+\s+(?:in\s+)?parallel/i,
+  /in\s+parallel[^.]*?(\d+)\s+(?:agents?|tasks?)/i,
+];
+
+/**
+ * Extract parallel claim count from prompt text.
+ *
+ * @param {string} promptText - User prompt text
+ * @returns {number|null} - Claimed parallel count (>= 2 and <= 100), or null if no valid claim
+ */
+function extractParallelClaim(promptText) {
+  if (!promptText || typeof promptText !== 'string') return null;
+
+  for (const pattern of PARALLEL_PATTERNS) {
+    const match = promptText.match(pattern);
+    if (match && match[1]) {
+      const num = parseInt(match[1], 10);
+      // Only return if within reasonable bounds (2-100)
+      if (num >= 2 && num <= 100) {
+        return num;
+      }
+    }
+  }
+
+  return null;
+}
+
 // Configuration cache (loaded once at startup, no hot-reload)
 let projectCommandMapping = null;
 let configLoadAttempted = false;
@@ -602,12 +639,17 @@ async function handleUserPromptSubmit(data) {
       return;
     }
 
+    // Extract parallel claim for fake-parallel detection
+    const parallelClaim = extractParallelClaim(promptText);
+
     const state = {
       active: true,
       command,
       required_subagent: null,
       turn_start_ms: Date.now(),
       session_id: sessionId,
+      expected_parallel_count: parallelClaim,
+      task_call_count: 0,
     };
 
     writeTurnState(sessionId, state);
@@ -622,12 +664,17 @@ async function handleUserPromptSubmit(data) {
   const mapped = effectiveMap[command];
   const requiredSubagent = mapped && typeof mapped === 'object' ? mapped.required_subagent : null;
 
+  // Extract parallel claim for fake-parallel detection
+  const parallelClaim = extractParallelClaim(promptText);
+
   const state = {
     active: true,
     command,
     required_subagent: requiredSubagent,
     turn_start_ms: Date.now(),
     session_id: sessionId,
+    expected_parallel_count: parallelClaim,
+    task_call_count: 0,
   };
 
   writeTurnState(sessionId, state);
