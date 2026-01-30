@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 2 of 2 (Advanced Detection & Configuration)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-01-30 - Completed 02-01-PLAN.md (external command mapping)
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-01-30 - Completed 02-02-PLAN.md (fake parallel detection)
 
-Progress: [███████████░] 92%
+Progress: [████████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 10 min
-- Total execution time: 1.0 hours
+- Total execution time: 1.1 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-core-enforcement-hook | 5 | 55 min | 11 min |
-| 02-advanced-detection-configuration | 1 | 4 min | 4 min |
+| 02-advanced-detection-configuration | 2 | 12 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (11 min), 01-03 (10 min), 01-04 (12 min), 01-05 (12 min), 02-01 (4 min)
+- Last 5 plans: 01-03 (10 min), 01-04 (12 min), 01-05 (12 min), 02-01 (4 min), 02-02 (8 min)
 - Trend: +
 
 *Updated after each plan completion*
@@ -48,6 +48,8 @@ Recent decisions affecting current work:
 - [Phase 1]: PreToolUse denies any non-allowed tool before delegation; Task tool_input.subagent_type is recorded as delegated_subagent for later enforcement
 - [Phase 2]: Config loaded in each handler (separate processes); silent fallback when missing; debug warning + fallback when invalid
 
+- [Phase 2]: Only block complete deception (claimed N, actual 1); tolerate partial parallel (actual > 1)
+
 ### Pending Todos
 
 [From .planning/todos/pending/ - ideas captured during sessions]
@@ -62,6 +64,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-30 15:08:00
-Stopped at: Completed 02-advanced-detection-configuration/02-01-PLAN.md
+Last session: 2026-01-30 15:18:00
+Stopped at: Completed 02-advanced-detection-configuration/02-02-PLAN.md
 Resume file: None
