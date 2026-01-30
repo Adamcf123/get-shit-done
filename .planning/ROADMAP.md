@@ -44,12 +44,11 @@ Plans:
   1. Hook detects when orchestrator claims "spawning 4 researchers in parallel" but only calls Task once (fake parallel detection)
   2. GSD command -> subagent mapping is declared in maintainable configuration file (not hardcoded)
   3. Configuration supports "at least N" parallel call validation for commands requiring multiple subagents
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Command mapping configuration (command-map.json structure)
-- [ ] 02-02: Parallel execution detection logic (analyzing Task call patterns)
-- [ ] 02-03: Configuration validation and hot-reload support
+- [ ] 02-01-PLAN.md — 外置命令映射配置（loadCommandMapping + config.json 模板）
+- [ ] 02-02-PLAN.md — 假并行检测（extractParallelClaim + validateParallelCalls）
 
 ## Progress
 
@@ -59,4 +58,4 @@ Phases execute in numeric order: 1 -> 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Enforcement Hook | 0/5 | Not started | - |
-| 2. Advanced Detection & Configuration | 0/3 | Not started | - |
+| 2. Advanced Detection & Configuration | 0/2 | Not started | - |
