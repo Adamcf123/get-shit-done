@@ -13,7 +13,7 @@ This roadmap delivers a Claude Code hook system that enforces GSD orchestrator c
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Core Enforcement Hook** - Detect GSD commands and block when expected subagents are not called
-- [ ] **Phase 2: Advanced Detection & Configuration** - Detect complex patterns and maintainable command mappings
+- [x] **Phase 2: Advanced Detection & Configuration** - Detect complex patterns and maintainable command mappings
 
 ## Phase Details
 
@@ -47,8 +47,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — 外置命令映射配置（loadCommandMapping + config.json 模板）
-- [ ] 02-02-PLAN.md — 假并行检测（extractParallelClaim + validateParallelCalls）
+- [x] 02-01-PLAN.md — 外置命令映射配置（loadCommandMapping + config.json 模板）
+- [x] 02-02-PLAN.md — 假并行检测（extractParallelClaim + validateParallelCalls）
 
 ## Progress
 
@@ -58,4 +58,4 @@ Phases execute in numeric order: 1 -> 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Enforcement Hook | 5/5 | ✓ Complete | 2026-01-30 |
-| 2. Advanced Detection & Configuration | 0/2 | Not started | - |
+| 2. Advanced Detection & Configuration | 2/2 | ✓ Complete | 2026-01-30 |
