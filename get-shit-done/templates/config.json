@@ -1,7 +1,7 @@
 {
   "mode": "interactive",
   "depth": "standard",
-  "output_language": "english",
+  "output_language": "chinese",
   "workflow": {
     "research": true,
     "plan_check": true,
@@ -32,5 +32,31 @@
   "safety": {
     "always_confirm_destructive": true,
     "always_confirm_external_services": true
+  },
+  "command_mapping": {
+    "/gsd:plan-phase": {
+      "required_subagent": "gsd-planner",
+      "expected_artifacts": [
+        {
+          "base_dir": ".planning/phases",
+          "required_any": ["**/*-PLAN.md"]
+        }
+      ],
+      "allowed_pre_tools": ["Task"]
+    },
+    "/gsd:quick": {
+      "required_subagent": "gsd-executor",
+      "expected_artifacts": [
+        {
+          "base_dir": ".planning/quick",
+          "required_all": ["**/*-PLAN.md", "**/*-SUMMARY.md"]
+        }
+      ],
+      "allowed_pre_tools": ["AskUserQuestion", "Task"]
+    },
+    "/gsd:discuss-phase": {
+      "required_subagent": "gsd-planner",
+      "expected_artifacts": []
+    }
   }
 }
